@@ -7,6 +7,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AdminTemplateComponent } from './admin-template/admin-template.component';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSidenavModule} from '@angular/material/Sidenav';
+import {MatListItemModule} from '@angular/material/ListItem';
+import {MatListModule} from '@angular/material/List';
 
 
 @NgModule({
@@ -17,8 +22,14 @@ import {MatButtonModule} from '@angular/material/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatToolbarModule,
-    MatButtonModule
+     MatToolbarModule,
+     MatButtonModule,
+     MatIconModule,
+     MatMenuModule,
+     MatSidenavModule,
+     MatListItemModule,
+     MatListModule
+
 
   ],
   providers: [
