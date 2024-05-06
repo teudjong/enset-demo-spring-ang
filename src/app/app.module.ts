@@ -9,9 +9,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
-import {MatSidenavModule} from '@angular/material/Sidenav';
-import {MatListItemModule} from '@angular/material/ListItem';
-import {MatListModule} from '@angular/material/List';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListItem, MatNavList} from '@angular/material/list';
 
 
 @NgModule({
@@ -22,15 +21,13 @@ import {MatListModule} from '@angular/material/List';
   imports: [
     BrowserModule,
     AppRoutingModule,
-     MatToolbarModule,
-     MatButtonModule,
-     MatIconModule,
-     MatMenuModule,
-     MatSidenavModule,
-     MatListItemModule,
-     MatListModule
-
-
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatNavList,
+    MatListItem
   ],
   providers: [
     provideAnimationsAsync()
