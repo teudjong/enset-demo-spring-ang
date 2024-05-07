@@ -11,12 +11,32 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListItem, MatNavList} from '@angular/material/list';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { StudentsComponent } from './students/students.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { ClassesComponent } from './classes/classes.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatDivider} from '@angular/material/divider';
+import { LoadStudentsComponent } from './load-students/load-students.component';
+import { LoadPaymentsComponent } from './load-payments/load-payments.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminTemplateComponent
+    AdminTemplateComponent,
+    HomeComponent,
+    ProfileComponent,
+    LoginComponent,
+    DashboardComponent,
+    StudentsComponent,
+    PaymentsComponent,
+    ClassesComponent,
+    LoadStudentsComponent,
+    LoadPaymentsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +47,9 @@ import {MatListItem, MatNavList} from '@angular/material/list';
     MatMenuModule,
     MatSidenavModule,
     MatNavList,
-    MatListItem
+    MatListItem,
+    MatCardModule,
+    MatDivider
   ],
   providers: [
     provideAnimationsAsync()
