@@ -3,6 +3,7 @@ import { MatListSubheaderCssMatStyler } from '@angular/material/list';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router, UrlTree, createUrlTreeFromSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -17,7 +18,7 @@ public displayedColumns =["id","firstName","lastName","payments"]
 @ViewChild(MatPaginator) paginator! : MatPaginator;
 @ViewChild(MatSort) sort! : MatSort;
 
-constructor(){
+constructor(private router : Router){
 
 }
   ngOnInit(): void {
@@ -39,4 +40,12 @@ constructor(){
       this.dataSource.sort = this.sort;
 
   }
+    filterStudents(event:Event) :void{
+       let value =(event.target as HTMLInputElement).value;
+       this.dataSource.filter = value;
+    }
+
+    getPayments(student :  any) :void {
+      this.router.navigateByUrl("/payments")
+    }
 }
