@@ -3,6 +3,7 @@ mat-form-field{
 }
 .login-container{
   width: 600px;
-  justify-content: center;
   margin: auto;
+  justify-content: center;
+  max-width: 800px;
 }
