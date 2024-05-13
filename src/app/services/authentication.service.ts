@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -6,25 +7,31 @@ import { Injectable } from '@angular/core';
 export class AuthenticationService {
  public username! : any;
   public roles : any;
-  public authenticate : boolean = false;
+  public authenticated : boolean = false;
+  public users:any = {
+  'admin': ['STUDENT','ADMIN'],
+  'user1': ['STUDENT']
+  }
 
+  constructor(private router: Router) {
 
-  constructor() { }
+  }
 
   public login(username:string , password: string) {
-    if(username=="admin" && password=="1234"){
+    if(this.users[username] && password=="1234"){
       this.username = username;
-      this.roles = ("ADMIN");
-      this.authenticate = true;
+      this.roles = this.username[username];
+      this.authenticated = true;
       return true;
     }else{
       return false;
     }
   } ;
-  
+
   logout(){
-    this.authenticate = false;
+    this.authenticated = false;
     this.username = undefined;
     this.roles = undefined;
+    this.router.navigateByUrl("/login");
   }
 }

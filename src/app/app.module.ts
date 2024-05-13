@@ -3,11 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AdminTemplateComponent } from './admin-template/admin-template.component';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import {MatButtonModule} from '@angular/material/button';
-import {MAT_ICON_DEFAULT_OPTIONS, MatIconModule} from '@angular/material/icon';
+import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListItem, MatNavList} from '@angular/material/list';
@@ -28,6 +27,9 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './guards/auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -62,14 +64,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSortHeader,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
-    
-  
+    ReactiveFormsModule,
+    BrowserAnimationsModule
 
-    
+
+
+
   ],
   providers: [
-    provideAnimationsAsync()
+    AuthGuard
+    //provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

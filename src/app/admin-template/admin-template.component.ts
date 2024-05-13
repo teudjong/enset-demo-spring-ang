@@ -14,4 +14,7 @@ export class AdminTemplateComponent implements OnInit {
   ngOnInit(): void {
       
   }
+  logout() {
+    this.authService.logout();
+  }
 }
