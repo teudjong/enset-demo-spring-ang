@@ -19,11 +19,13 @@ export class AuthorizationGuard  {
    let authorize = false;
    let authorizedRoles : string[] = route.data['roles'];
    let roles : string[] = this.authService.roles as string[];
-   for ( let role of this.authService.roles){
-    if (authorizedRoles.includes(role)){
+   console.log(roles)
+   for (const element of roles){
+    if(authorizedRoles.includes(element)){
       authorize = true;
     }
    }
-  return authorize;
+
+   return authorize;
  }
 }
