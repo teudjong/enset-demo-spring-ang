@@ -29,6 +29,7 @@ import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthorizationGuard } from './guards/authorization.guard';
 
 
 
@@ -72,7 +73,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
   ],
   providers: [
-    AuthGuard
+    AuthGuard,AuthorizationGuard
     //provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

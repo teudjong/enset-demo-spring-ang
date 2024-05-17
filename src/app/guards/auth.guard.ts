@@ -5,7 +5,10 @@ import { ActivatedRouteSnapshot,
      Router,
      RouterStateSnapshot
     } from '@angular/router';
+
 import { AuthenticationService } from '../services/authentication.service';
+
+
 
 @Injectable()
 export class AuthGuard  {
@@ -23,5 +26,6 @@ export class AuthGuard  {
       return false;
     }
 
+  }
  }
-}
+
