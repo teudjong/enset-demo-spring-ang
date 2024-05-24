@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthorizationGuard } from './guards/authorization.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -66,7 +67,9 @@ import { AuthorizationGuard } from './guards/authorization.guard';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatTableModule
 
 
 
