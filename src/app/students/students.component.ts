@@ -1,9 +1,9 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, viewChild } from '@angular/core';
-import { MatListSubheaderCssMatStyler } from '@angular/material/list';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, UrlTree, createUrlTreeFromSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
+import { StudentsService } from '../services/students.service';
 
 @Component({
   selector: 'app-students',
@@ -18,12 +18,12 @@ public displayedColumns =["id","firstName","lastName","payments"]
 @ViewChild(MatPaginator) paginator! : MatPaginator;
 @ViewChild(MatSort) sort! : MatSort;
 
-constructor(private router : Router){
+constructor(private router : Router,private studentsService: StudentsService){
 
 }
   ngOnInit(): void {
       this.students=[];
-      for (let i:number = 1; i<100; i++){
+      /* for (let i:number = 1; i<100; i++){
         this.students.push(
           {
             id : i,
@@ -32,7 +32,21 @@ constructor(private router : Router){
           }
         );
       }
-      this.dataSource = new MatTableDataSource(this.students)
+      this.dataSource = new MatTableDataSource(this.students) */
+
+      this.studentsService.getStudents()
+      .subscribe({
+        next : data => {
+          this.students = data;
+          this.dataSource = new MatTableDataSource(this.students);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        error : err => {
+          console.log(err);
+        }
+
+      })
   }
 
   ngAfterViewInit(): void {
@@ -49,3 +63,4 @@ constructor(private router : Router){
       this.router.navigateByUrl("/payments")
     }
 }
+

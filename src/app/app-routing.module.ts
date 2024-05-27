@@ -13,6 +13,7 @@ import { AdminTemplateComponent } from './admin-template/admin-template.componen
 import { AuthGuard } from './guards/auth.guard';
 import { AuthorizationGuard } from './guards/authorization.guard';
 
+
 const routes: Routes = [
   {path : "", component : LoginComponent},
   {path : "login", component : LoginComponent},
