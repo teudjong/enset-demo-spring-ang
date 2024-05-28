@@ -14,7 +14,7 @@ export class StudentsComponent implements OnInit, AfterViewInit{
 
 public students : any;
 public dataSource : any;
-public displayedColumns =["id","firstName","lastName","payments"]
+public displayedColumns =["id","firstName","lastName","code","programId","photo","payments"]
 @ViewChild(MatPaginator) paginator! : MatPaginator;
 @ViewChild(MatSort) sort! : MatSort;
 
