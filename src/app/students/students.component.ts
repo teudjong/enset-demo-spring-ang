@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { StudentsService } from '../services/students.service';
+import { Student } from '../model/students.model';
 
 @Component({
   selector: 'app-students',
@@ -12,8 +13,8 @@ import { StudentsService } from '../services/students.service';
 })
 export class StudentsComponent implements OnInit, AfterViewInit{
 
-public students : any;
-public dataSource : any;
+public students! : Array<Student>;
+public dataSource! : MatTableDataSource<Student>;
 public displayedColumns =["id","firstName","lastName","code","programId","photo","payments"]
 @ViewChild(MatPaginator) paginator! : MatPaginator;
 @ViewChild(MatSort) sort! : MatSort;
@@ -47,6 +48,7 @@ constructor(private router : Router,private studentsService: StudentsService){
         }
 
       })
+
   }
 
   ngAfterViewInit(): void {
@@ -59,8 +61,8 @@ constructor(private router : Router,private studentsService: StudentsService){
        this.dataSource.filter = value;
     }
 
-    getPayments(student :  any) :void {
-      this.router.navigateByUrl("/payments")
+    getPayments(student: any) {
+      this.router.navigateByUrl(`/admin/student-details/${student.code}`);
     }
 }
 

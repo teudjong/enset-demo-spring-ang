@@ -31,6 +31,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthorizationGuard } from './guards/authorization.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { StudentDetailsComponent } from './student-details/student-details.component';
+import { NewPaymentComponent } from './new-payment/new-payment.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { HttpClientModule } from '@angular/common/http';
     PaymentsComponent,
     ClassesComponent,
     LoadStudentsComponent,
-    LoadPaymentsComponent
+    LoadPaymentsComponent,
+    StudentDetailsComponent,
+    NewPaymentComponent
   ],
   imports: [
     BrowserModule,

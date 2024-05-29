@@ -11,8 +11,8 @@ import { StudentsService } from '../services/students.service';
   styleUrl: './payments.component.css'
 })
 export class PaymentsComponent implements OnInit{
-  public payments : any;
-  public dataSource : any;
+  public payments! : any;
+  public dataSource! : any;
   public displayedColumns = ['id','date','amount','type','status','firstName'];
 
 
