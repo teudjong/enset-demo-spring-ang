@@ -37,6 +37,7 @@ public displayedColumns = ['id','date','amount','type','status','firstName'];
   }
 
   newPayment(){
-     this.router.navigateByUrl(`/admin/new-payment/${this.studentCode}`)
+    console.log(this.studentCode)
+     this.router.navigateByUrl(`/admin/${this.studentCode}/new-payment`)
   }
 }

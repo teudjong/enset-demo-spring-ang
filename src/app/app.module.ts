@@ -33,6 +33,9 @@ import { AuthorizationGuard } from './guards/authorization.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -73,7 +76,11 @@ import { NewPaymentComponent } from './new-payment/new-payment.component';
     BrowserAnimationsModule,
     HttpClientModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatSelectModule
+    
 
    
     

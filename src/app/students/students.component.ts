@@ -40,8 +40,6 @@ constructor(private router : Router,private studentsService: StudentsService){
         next : data => {
           this.students = data;
           this.dataSource = new MatTableDataSource(this.students);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
         },
         error : err => {
           console.log(err);
@@ -54,7 +52,6 @@ constructor(private router : Router,private studentsService: StudentsService){
   ngAfterViewInit(): void {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
   }
     filterStudents(event:Event) :void{
        let value =(event.target as HTMLInputElement).value;
