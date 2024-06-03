@@ -38,6 +38,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 
 
 
@@ -55,7 +56,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LoadStudentsComponent,
     LoadPaymentsComponent,
     StudentDetailsComponent,
-    NewPaymentComponent
+    NewPaymentComponent,
+    PaymentDetailsComponent
   ],
   imports: [
     BrowserModule,

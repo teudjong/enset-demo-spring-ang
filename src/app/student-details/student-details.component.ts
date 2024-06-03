@@ -13,7 +13,7 @@ export class StudentDetailsComponent implements OnInit{
 studentCode! : string;
 studentPayments! : Array<Payment>;
 paymentsDataSource! : MatTableDataSource<Payment>;
-public displayedColumns = ['id','date','amount','type','status','firstName'];
+public displayedColumns = ['id','date','amount','type','status','firstName','details'];
 
 
   constructor(private activatedRoute : ActivatedRoute,
@@ -39,5 +39,9 @@ public displayedColumns = ['id','date','amount','type','status','firstName'];
   newPayment(){
     console.log(this.studentCode)
      this.router.navigateByUrl(`/admin/${this.studentCode}/new-payment`)
+  }
+
+  paymentDetails(payment: Payment){
+    this.router.navigateByUrl(`/admin/payment-details/${payment.id}`);
   }
 }
