@@ -24,17 +24,27 @@ export class LoginComponent implements OnInit{
       username : this.fb.control(''),
       password : this.fb.control(''),
     });
-
+  
   }
 
   login() {
     let username = this.loginFormGroup.value.username;
     let password = this.loginFormGroup.value.password;
-    let auth:boolean = this.authService.login(username,password);
-    console.log(auth)
+     /*let auth = this.authService.login(username,password);
+     console.log(auth)
     if(auth==true){
       this.router.navigateByUrl("/admin")
     }
+  */
+     this.authService.login(username,password).subscribe({
+      next : data => {
+         this.authService.loadProfile(data);
+         this.router.navigateByUrl("/admin")
+      },
+      error : err => {
+          console.log(err);
+      }
+    }) 
   }
 
 }
