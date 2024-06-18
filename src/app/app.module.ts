@@ -30,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthorizationGuard } from './guards/authorization.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -39,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { AppHttpInterceptor } from './interceptors/app-http.interceptor';
 
 
 
@@ -98,7 +99,9 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
 
   ],
   providers: [
-    AuthGuard,AuthorizationGuard
+    {provide : HTTP_INTERCEPTORS, useClass : AppHttpInterceptor, multi : true},
+    AuthGuard,
+    AuthorizationGuard
     //provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

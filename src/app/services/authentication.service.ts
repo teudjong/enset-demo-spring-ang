@@ -7,8 +7,9 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthenticationService {
- public username! : any;
-  public roles : any;
+  public exp!: any;
+  public username! : any;
+  public roles! : string[];
   public authenticated = false;
   public accessToken!: string;
   public users:any = {
@@ -43,15 +44,14 @@ export class AuthenticationService {
      this.accessToken = data['access_token'];
      let decodeJwt:any = jwtDecode(this.accessToken);
      this.username = decodeJwt.sub;
-     this.roles = decodeJwt.scope;
+     this.exp = decodeJwt.exp;
+     this.roles = decodeJwt.scope.split(' ');
   }
-
-
 
   logout(){
     this.authenticated = false;
     this.username = undefined;
-    this.roles = undefined;
+    this.roles = [];
     this.router.navigateByUrl("/login");
   }
 }
