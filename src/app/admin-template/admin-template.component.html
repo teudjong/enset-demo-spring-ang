@@ -16,26 +16,26 @@
   <button mat-button *ngIf="authService.authenticated==true">
    {{authService.username}}
   </button>
-  <button (click)="logout()"  routerLink="/login" mat-raised-button color="accent">logout</button>
+  <button (click)="handleLogout()" mat-raised-button color="accent">logout</button>
 </mat-toolbar>
 
 <mat-drawer-container>
   <mat-drawer #drawer mode="side" position="start" opened="true">
     <mat-nav-list>
        <mat-list-item>
-         <button mat-button routerLink="/admin/dashboard">
+         <button  mat-button routerLink="/admin/dashboard">
           <mat-icon>dashboard</mat-icon>
           Dashboard
         </button>
        </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="/admin/students">
+        <button (click)="loadStudent()" mat-button>
           <mat-icon>dashboard</mat-icon>
           Students
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="/admin/payments">
+        <button (click)="loadPayment()" mat-button>
           <mat-icon>dashboard</mat-icon>
           Payments
         </button>

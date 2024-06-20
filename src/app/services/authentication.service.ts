@@ -11,7 +11,8 @@ export class AuthenticationService {
   public username! : any;
   public roles! : string[];
   public authenticated = false;
-  public accessToken!: string;
+  public authorized = false;
+  public accessToken!: any;
   public users:any = {
   'admin': ['STUDENT','ADMIN'],
   'user1': ['STUDENT']
@@ -46,12 +47,23 @@ export class AuthenticationService {
      this.username = decodeJwt.sub;
      this.exp = decodeJwt.exp;
      this.roles = decodeJwt.scope.split(' ');
+     window.localStorage.setItem("jwt-token",this.accessToken);
   }
 
   logout(){
     this.authenticated = false;
     this.username = undefined;
+    this.accessToken= undefined;
     this.roles = [];
     this.router.navigateByUrl("/login");
+    this.router.navigateByUrl("/login");
+  }
+
+  loadJwtTokenFromLocalStorage(){
+    let token = window.localStorage.getItem("jwt-token");
+    if(token){
+      this.loadProfile({"access_token" : token});
+      this.router.navigateByUrl("/admin/students");
+    }
   }
 }

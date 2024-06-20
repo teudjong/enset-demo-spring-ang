@@ -40,6 +40,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 import { AppHttpInterceptor } from './interceptors/app-http.interceptor';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 
 
@@ -58,7 +59,8 @@ import { AppHttpInterceptor } from './interceptors/app-http.interceptor';
     LoadPaymentsComponent,
     StudentDetailsComponent,
     NewPaymentComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    NotAuthorizedComponent
   ],
   imports: [
     BrowserModule,
@@ -87,16 +89,7 @@ import { AppHttpInterceptor } from './interceptors/app-http.interceptor';
     MatDatepickerModule,
     MatSelectModule,
     PdfViewerModule,
-    MatProgressSpinnerModule 
-
-    
-
-   
-    
-
-
-
-
+    MatProgressSpinnerModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS, useClass : AppHttpInterceptor, multi : true},
