@@ -27,7 +27,7 @@ const routes: Routes = [
     {path : "home", component : HomeComponent},
     {path : "profile", component : ProfileComponent},
     {path : "dashboard", component : DashboardComponent},
-    {path : " ", component : StudentsComponent,canActivate : [AuthorizationGuard], data : {roles : ['ADMIN']}},
+    {path : "students", component : StudentsComponent,canActivate : [AuthorizationGuard], data : {roles : ['ADMIN']}},
     {path : "payments", component : PaymentsComponent,canActivate : [AuthorizationGuard], data : {roles : ['ADMIN']}},
     {path : "student-details/:code", component : StudentDetailsComponent},
     {path : ":studentCode/new-payment", component : NewPaymentComponent},

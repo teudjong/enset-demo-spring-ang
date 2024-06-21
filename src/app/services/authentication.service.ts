@@ -55,7 +55,8 @@ export class AuthenticationService {
     this.username = undefined;
     this.accessToken= undefined;
     this.roles = [];
-    this.router.navigateByUrl("/login");
+    //window.localStorage.clear();
+    window.localStorage.removeItem("jwt-token");
     this.router.navigateByUrl("/login");
   }
 
@@ -63,6 +64,7 @@ export class AuthenticationService {
     let token = window.localStorage.getItem("jwt-token");
     if(token){
       this.loadProfile({"access_token" : token});
+      console.log(token)
       this.router.navigateByUrl("/admin/students");
     }
   }
