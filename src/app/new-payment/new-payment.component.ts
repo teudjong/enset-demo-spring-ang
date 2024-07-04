@@ -66,7 +66,9 @@ export class NewPaymentComponent implements OnInit {
           {
              next : Payment =>{
               this.showProgress = false;
-              alert('Payment Saved successfully!')
+              alert('Payment Saved successfully!'
+                    
+              )
              },
              error : err=>{
               console.log(err);

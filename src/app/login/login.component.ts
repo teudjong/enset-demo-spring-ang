@@ -6,12 +6,14 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.component.html', 
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit{
 
   public loginFormGroup! : FormGroup;
+
+  public erroMessage! : any;
 
   constructor(private fb : FormBuilder,
      private authService : AuthenticationService,
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit{
          this.router.navigateByUrl("/admin")
       },
       error : err => {
+      this.erroMessage = "Username ou mot de passe incorrect."
           console.log(err);
       }
     }) 

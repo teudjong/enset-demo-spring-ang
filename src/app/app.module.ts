@@ -61,6 +61,8 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
     NewPaymentComponent,
     PaymentDetailsComponent,
     NotAuthorizedComponent
+
+    
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,11 @@
         <mat-card-title>Authentification</mat-card-title>                    
      </mat-card-header> 
      <mat-divider></mat-divider>
+
+      <P *ngIf="this.erroMessage" style="text-align: center;">  
+        <span style="color:red;" class="bigger">{{this.erroMessage}}</span> 
+      </P>
+     
      <mat-card-content>
        <mat-form-field appearance="outline">
          <mat-label>UserName Or Email</mat-label>
