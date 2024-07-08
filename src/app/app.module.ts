@@ -41,6 +41,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 import { AppHttpInterceptor } from './interceptors/app-http.interceptor';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -60,7 +61,8 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
     StudentDetailsComponent,
     NewPaymentComponent,
     PaymentDetailsComponent,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    LoaderComponent
 
     
   ],

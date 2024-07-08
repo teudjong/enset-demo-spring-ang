@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit{
   public loginFormGroup! : FormGroup;
 
   public erroMessage! : any;
+  showProgress : boolean = false;
 
   constructor(private fb : FormBuilder,
      private authService : AuthenticationService,
@@ -38,12 +39,16 @@ export class LoginComponent implements OnInit{
       this.router.navigateByUrl("/admin")
     }
   */
+    this.showProgress = true;
      this.authService.login(username,password).subscribe({
       next : data => {
+        this.showProgress = false;
+       // alert(' connected successfully!')  
          this.authService.loadProfile(data);
          this.router.navigateByUrl("/admin")
       },
       error : err => {
+        this.showProgress = false;
       this.erroMessage = "Username ou mot de passe incorrect."
           console.log(err);
       }

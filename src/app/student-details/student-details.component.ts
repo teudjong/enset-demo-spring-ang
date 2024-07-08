@@ -14,6 +14,7 @@ studentCode! : string;
 studentPayments! : Array<Payment>;
 paymentsDataSource! : MatTableDataSource<Payment>;
 public displayedColumns = ['id','date','amount','type','status','firstName','details'];
+showProgress : boolean = false;
 
 
   constructor(private activatedRoute : ActivatedRoute,
@@ -25,12 +26,15 @@ public displayedColumns = ['id','date','amount','type','status','firstName','det
 
   ngOnInit(): void {
       this.studentCode = this.activatedRoute.snapshot.params['code'];
+      this.showProgress = true;
       this.studentsService.getStudentPayments(this.studentCode).subscribe({
         next : value => {
+          this.showProgress = false;
             this.studentPayments = value;
             this.paymentsDataSource = new MatTableDataSource<Payment>(this.studentPayments)
         },
         error : err =>{
+          this.showProgress = false;
           console.log(err);
         }
       });

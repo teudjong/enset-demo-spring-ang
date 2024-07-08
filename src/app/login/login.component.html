@@ -1,15 +1,13 @@
 <div class="login-container">
-  <mat-card [formGroup]="loginFormGroup">
-     <mat-card-header>
-        <mat-card-title>Authentification</mat-card-title>                    
-     </mat-card-header> 
+  <mat-card [formGroup]="loginFormGroup"> 
+     <h2 class="centered-title">Authentification</h2>
      <mat-divider></mat-divider>
-
-      <P *ngIf="this.erroMessage" style="text-align: center;">  
-        <span style="color:red;" class="bigger">{{this.erroMessage}}</span> 
+     <br>
+      <P *ngIf="this.erroMessage" class="errorMessage">  
+        <span >{{this.erroMessage}}</span> 
       </P>
      
-     <mat-card-content>
+     <mat-card-content>   
        <mat-form-field appearance="outline">
          <mat-label>UserName Or Email</mat-label>
          <input type="text" matInput formControlName="username">
@@ -26,6 +24,9 @@
       mat-raised-button color="primary"
       (click)="login()"
       >Login</button>
+      @if(showProgress) {
+        <app-loader></app-loader>
+      }
      </mat-card-actions>                                            
   </mat-card>                                                     
 </div>

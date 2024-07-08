@@ -14,24 +14,28 @@ export class PaymentsComponent implements OnInit{
   public payments! : any;
   public dataSource! : any;
   public displayedColumns = ['id','date','amount','type','status','firstName'];
-
-
+  showProgress : boolean = false;
   @ViewChild(MatPaginator) paginator! : MatPaginator;
   @ViewChild(MatSort) sort! : MatSort;
+
+  
   constructor(private studentsService : StudentsService){
 
   }
 
   ngOnInit(): void {
+    this.showProgress = true;
       this.studentsService.getAllPayments()
       .subscribe({
         next : data => {
+          this.showProgress = false;
           this.payments = data;
           this.dataSource = new MatTableDataSource(this.payments);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         },
         error : err => {
+          this.showProgress = false;
           console.log(err);
         }
 

@@ -15,9 +15,11 @@ export class StudentsComponent implements OnInit, AfterViewInit{
 
 public students! : Array<Student>;
 public dataSource! : MatTableDataSource<Student>;
-public displayedColumns =["id","firstName","lastName","code","programId","photo","payments"]
+public displayedColumns =["id","firstName","lastName","code","programId","photo","payments"];
 @ViewChild(MatPaginator) paginator! : MatPaginator;
 @ViewChild(MatSort) sort! : MatSort;
+showProgress : boolean = false;
+
 
 constructor(private router : Router,private studentsService: StudentsService){
 
@@ -35,13 +37,16 @@ constructor(private router : Router,private studentsService: StudentsService){
       }
       this.dataSource = new MatTableDataSource(this.students) */
 
+      this.showProgress = true;
       this.studentsService.getStudents()
       .subscribe({
         next : data => {
+          this.showProgress = false;
           this.students = data;
           this.dataSource = new MatTableDataSource(this.students);
         },
         error : err => {
+          this.showProgress = false;
           console.log(err);
         }
 

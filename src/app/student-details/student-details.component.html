@@ -48,6 +48,9 @@
                             <td mat-cell *matCellDef="let element"> 
                                 <button (click)="paymentDetails(element)" mat-raised-button color="primary">Details</button>
                             </td>
+                            @if (showProgress) {
+                                <mat-spinner></mat-spinner>
+                                } 
                             </ng-container>
 
                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

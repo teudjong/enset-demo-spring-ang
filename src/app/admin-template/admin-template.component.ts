@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrl: './admin-template.component.css'
 })
 export class AdminTemplateComponent implements OnInit {
+  
+
 
   constructor(public authService : AuthenticationService,
     private router : Router

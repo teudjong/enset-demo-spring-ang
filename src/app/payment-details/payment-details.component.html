@@ -19,6 +19,9 @@
                         (after-load-complete)="afterLoardComplete($event)">
         </pdf-viewer>             
        </mat-card-content>
+       @if (showProgress) {
+        <mat-spinner></mat-spinner>
+        }
                
     </mat-card>
 </div>

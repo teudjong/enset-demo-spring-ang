@@ -10,6 +10,14 @@ mat-form-field{
   margin-right: 30%;
 }
 
-.bigger {
+.errorMessage {
   font-size: larger;
+  color: red;
+  margin-bottom: 4%;
+  text-align: center;
+}
+  
+.centered-title {
+  text-align: center;
+  margin-top: 3%;
 }
