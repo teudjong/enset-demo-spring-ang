@@ -42,6 +42,7 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
 import { AppHttpInterceptor } from './interceptors/app-http.interceptor';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { LoaderComponent } from './loader/loader.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -93,7 +94,8 @@ import { LoaderComponent } from './loader/loader.component';
     MatDatepickerModule,
     MatSelectModule,
     PdfViewerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS, useClass : AppHttpInterceptor, multi : true},

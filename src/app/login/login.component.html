@@ -1,4 +1,7 @@
 <div class="login-container">
+  @if(showProgress) {
+    <app-loader></app-loader>
+  }
   <mat-card [formGroup]="loginFormGroup"> 
      <h2 class="centered-title">Authentification</h2>
      <mat-divider></mat-divider>
@@ -24,9 +27,6 @@
       mat-raised-button color="primary"
       (click)="login()"
       >Login</button>
-      @if(showProgress) {
-        <app-loader></app-loader>
-      }
      </mat-card-actions>                                            
   </mat-card>                                                     
 </div>

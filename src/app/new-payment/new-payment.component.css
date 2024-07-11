@@ -12,3 +12,8 @@ width: 600px;
   margin: 0 auto;
   max-width: 1200px;                       
 }
+
+.success-snackbar{
+  border-radius: 8px !important;
+  background-color: #4CAF50 !important;
+}

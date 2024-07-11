@@ -42,11 +42,14 @@
                         <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf">
                   </mat-form-field>
                   <mat-card-actions>
-                        <button (click)="savePayment()" mat-raised-button color="primary">Save Payment</button>
-                        @if (showProgress) {
-                        <mat-spinner></mat-spinner>
-                        }
-                        <!-- <mat-spinner *ngIf="showProgress"></mat-spinner> -->
+                        <div class="this.snackBar.open">
+                              <button mat-button (click)="savePayment()" mat-raised-button color="primary">Save Payment</button>
+                              @if (showProgress) {
+                                    <app-loader></app-loader>
+                                    }
+                              <!-- <mat-spinner *ngIf="showProgress"></mat-spinner> -->
+                        </div>
+                       
                   </mat-card-actions>
             </mat-card-content>
       </mat-card>

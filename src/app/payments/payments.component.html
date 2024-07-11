@@ -46,10 +46,10 @@
 
                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table> 
-@if (showProgress) {
-  <mat-spinner></mat-spinner>
-  }   
+            </table> 
+            @if (showProgress) {
+              <app-loader></app-loader>
+              }   
 
 <mat-paginator [pageSizeOptions]="[5,10,15,20,25,30,50,100]"
                  showFirstLastButtons>

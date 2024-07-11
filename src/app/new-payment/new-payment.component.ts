@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentType } from '../model/students.model';
 import { StudentsService } from '../services/students.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-payment',
@@ -15,11 +16,13 @@ export class NewPaymentComponent implements OnInit {
   paymentTypes : string[]=[];
   pdfFileUrl! : string;
   showProgress : boolean = false;
+  
  
 
       constructor(private fb : FormBuilder,
          private activatedRoute : ActivatedRoute,
-        private studentsService : StudentsService){
+         private studentsService : StudentsService,
+         private snackBar: MatSnackBar){
 
       }
 
@@ -74,6 +77,12 @@ export class NewPaymentComponent implements OnInit {
              }
          }
         );
+        this.snackBar.open('successful payment register!', 'Close', {
+          duration: 3000,
+          panelClass: ['success-snackbar'],
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
       }
 
       afterLoardComplete(event: any){
