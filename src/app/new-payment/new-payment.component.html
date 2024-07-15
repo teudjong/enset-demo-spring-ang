@@ -42,7 +42,7 @@
                         <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf">
                   </mat-form-field>
                   <mat-card-actions>
-                        <div class="this.snackBar.open">
+                        <div class="new-container">
                               <button mat-button (click)="savePayment()" mat-raised-button color="primary">Save Payment</button>
                               @if (showProgress) {
                                     <app-loader></app-loader>

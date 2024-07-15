@@ -13,7 +13,27 @@ width: 600px;
   max-width: 1200px;                       
 }
 
-.success-snackbar{
-  border-radius: 8px !important;
-  background-color: #4CAF50 !important;
+
+::ng-deep .snackbar-success{
+  --mdc-snackbar-container-color: #068b1a;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+::ng-deep .snackbar-error{
+  --mdc-snackbar-container-color: #7c1a1c;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+::ng-deep .snackbar-warning{
+  --mdc-snackbar-container-color: #d8e61a;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+::ng-deep .snackbar-info{
+  --mdc-snackbar-container-color: hsl(173, 80%, 50%);
+  border-radius: 10px;
+  margin-top: 30px;
 }

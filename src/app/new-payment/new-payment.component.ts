@@ -77,15 +77,23 @@ export class NewPaymentComponent implements OnInit {
              }
          }
         );
-        this.snackBar.open('successful payment register!', 'Close', {
-          duration: 3000,
-          panelClass: ['success-snackbar'],
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
-        });
+        
+        this.snackbarNotification('successful payment register!','snackbar-success');
       }
 
       afterLoardComplete(event: any){
         console.log(event);
       }
+
+      snackbarNotification(message: any, className: any){
+        this.snackBar.open(message, '', {
+          duration: 30000,
+          panelClass: [className],
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+      }
+
 }
+
+
