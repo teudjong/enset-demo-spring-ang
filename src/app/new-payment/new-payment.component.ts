@@ -17,6 +17,7 @@ export class NewPaymentComponent implements OnInit {
   paymentTypes : string[]=[];
   pdfFileUrl! : string;
   showProgress : boolean = false;
+  showPdf : boolean = true;
   
  
 
@@ -46,6 +47,7 @@ export class NewPaymentComponent implements OnInit {
       }
 
       selectFile(event: any){
+        this.showPdf = true;
         if(event.target.files.length>0){
           let file = event.target.files[0];
           this.paymentFormGroup.patchValue({
@@ -70,9 +72,10 @@ export class NewPaymentComponent implements OnInit {
           {
              next : Payment =>{
               this.showProgress = false;
+              this.showPdf = false;
               this.snackbarService.show('Payement enregistre avec succes!','snackbar-success');
-              this.paymentFormGroup.reset();
-              
+              this.paymentFormGroup.reset();  
+             
               //alert('Payment Saved successfully!')
              },
              error : err =>{

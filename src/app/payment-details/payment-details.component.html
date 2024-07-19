@@ -17,11 +17,11 @@
                         [show-borders]="false"
                         class="pdf-viewer"
                         (after-load-complete)="afterLoardComplete($event)">
-        </pdf-viewer>             
+        </pdf-viewer>         
+        @if (showProgress) {
+          <app-loader></app-loader>
+          }
+      
        </mat-card-content>
     </mat-card>
-    @if (showProgress) {
-        <app-loader></app-loader>
-        }
-
 </div>
