@@ -72,6 +72,7 @@ export class NewPaymentComponent implements OnInit {
               this.showProgress = false;
               this.snackbarService.show('Payement enregistre avec succes!','snackbar-success');
               this.paymentFormGroup.reset();
+              
               //alert('Payment Saved successfully!')
              },
              error : err =>{
