@@ -6,3 +6,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container{
   padding: 10px;                       
 }
+
+.snackbar-success {
+  --mdc-snackbar-container-color: #068b1a;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.snackbar-error {
+  --mdc-snackbar-container-color: #7c1a1c;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.snackbar-warning {
+  --mdc-snackbar-container-color: #88910b;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.snackbar-info {
+  --mdc-snackbar-container-color: hsl(173, 80%, 50%);
+  border-radius: 10px;
+  margin-top: 30px;
+}

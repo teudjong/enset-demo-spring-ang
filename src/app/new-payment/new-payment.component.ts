@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentType } from '../model/students.model';
 import { StudentsService } from '../services/students.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../services/snackbar.service';
+
 
 @Component({
   selector: 'app-new-payment',
@@ -22,7 +23,7 @@ export class NewPaymentComponent implements OnInit {
       constructor(private fb : FormBuilder,
          private activatedRoute : ActivatedRoute,
          private studentsService : StudentsService,
-         private snackBar: MatSnackBar){
+        private snackbarService : SnackbarService ){
 
       }
 
@@ -69,29 +70,30 @@ export class NewPaymentComponent implements OnInit {
           {
              next : Payment =>{
               this.showProgress = false;
+              this.snackbarService.show('Payement enregistre avec succes!','snackbar-success');
+              this.paymentFormGroup.reset();
               //alert('Payment Saved successfully!')
              },
-             error : err=>{
+             error : err =>{
               console.log(err);
               this.showProgress = false;
+              console.log(err.status);
+              if(err.status === 400){
+                this.snackbarService.show('Ressource introuvale', 'snackbar-warning');
+              }else if(err.status === 401){
+                this.snackbarService.show('Vous n\'etes pas connectes', 'snackbar-warning');
+              }else if(err.status === 403){
+                this.snackbarService.show('Vous n\'avez pas les autorisations', 'snackbar-warning');
+              }else{
+                this.snackbarService.show('Failed to save payment', 'snackbar-error');
+              }
              }
          }
         );
-        
-        this.snackbarNotification('successful payment register!','snackbar-success');
       }
 
       afterLoardComplete(event: any){
         console.log(event);
-      }
-
-      snackbarNotification(message: any, className: any){
-        this.snackBar.open(message, '', {
-          duration: 30000,
-          panelClass: [className],
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
-        });
       }
 
 }

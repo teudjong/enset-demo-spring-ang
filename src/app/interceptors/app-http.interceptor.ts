@@ -9,8 +9,6 @@ export class AppHttpInterceptor implements HttpInterceptor{
   constructor(private authService : AuthenticationService){}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-     console.log("******")
-     console.log(request.url);
      if(!request.url.includes("/auth/login")){
       let newRequest = request.clone({
         headers : request.headers.set('Authorization','Bearer '+this.authService.accessToken)
