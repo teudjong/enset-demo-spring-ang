@@ -24,7 +24,7 @@ export class StudentsService {
   }
 
   public getStudentPayments(code : string):Observable<Array<Payment>>{
-    return this.http.get<Array<Payment>>(`${environment.backendHost}/students/${code}/payments`);
+    return this.http.get<Array<Payment>>(`${environment.backendHost}/student/${code}/payments`);
     
   }
 

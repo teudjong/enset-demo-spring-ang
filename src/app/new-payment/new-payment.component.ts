@@ -70,7 +70,7 @@ export class NewPaymentComponent implements OnInit {
          formData.set('file', this.paymentFormGroup.value.fileSource);
          this.studentsService.savePayment(formData).subscribe(
           {
-             next : Payment =>{
+             next : payment =>{
               this.showProgress = false;
               this.showPdf = false;
               this.snackbarService.show('Payement enregistre avec succes!','snackbar-success');
