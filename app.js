@@ -5,6 +5,7 @@ const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
 
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(morgan('any'));
@@ -14,6 +15,6 @@ app.get('/',(req,res)=>{
    res.send('Hello fron my home in mauritius');
 });
 
-app.listen(3000,()=>{
- debug(`Open on the port ${chalk.green('3000')}`);
+app.listen(PORT,()=>{
+ debug(`Open app on this port ${chalk.green(PORT)}`);
 });

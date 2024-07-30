@@ -1,8 +1,27 @@
 {
+  "name": "first-app",
+  "version": "1.0.0",
+  "description": "beginning node js full stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "set DEBUG=app & nodemon app.js",
+    "debug": "set DEBUG=* & nodemon app.js",
+    "test": "echo : this is the test"
+  },
+  "author": "Ebenezaire Gnilapon",
+  "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
     "debug": "^4.3.6",
     "express": "^4.19.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "delay": 2500,
+    "env":{
+      "PORT":4000
+    }
   }
 }
