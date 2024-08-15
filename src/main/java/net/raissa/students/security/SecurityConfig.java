@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,18 +47,18 @@ public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         PasswordEncoder passwordEncoder = passwordEncoder();
-        return new InMemoryUserDetailsManager(new UserDetails[] { User.withUsername("user1").password(passwordEncoder.encode("1234")).authorities(new String[] { "USER" }).build(),
-                User.withUsername("admin").password(passwordEncoder.encode("1234")).authorities(new String[] { "USER", "ADMIN" }).build() });
+        return new InMemoryUserDetailsManager(User.withUsername("user1").password(passwordEncoder.encode("1234")).authorities(new String[] { "USER" }).build(),
+                User.withUsername("admin").password(passwordEncoder.encode("1234")).authorities(new String[] { "USER", "ADMIN" }).build());
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return (PasswordEncoder)new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return (SecurityFilterChain)httpSecurity.headers(headers -> headers.frameOptions().disable())
+        return httpSecurity.headers(headers -> headers.frameOptions().disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())

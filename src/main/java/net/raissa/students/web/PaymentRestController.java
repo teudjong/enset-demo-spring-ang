@@ -39,7 +39,7 @@ public class PaymentRestController {
         return this.paymentRepository.findAll();
     }
 
-    @GetMapping(path = {"/students/{code}/payments"})
+    @GetMapping(path = {"/student/{code}/payments"})
     @PreAuthorize("hasAuthority('SCOPE_USER')")
     public List<Payment> paymentsByStudent(@PathVariable String code) {
         return this.paymentRepository.findByStudentCode(code);
