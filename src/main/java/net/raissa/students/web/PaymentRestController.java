@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import net.raissa.students.models.dtos.NewPaymentDTO;
 import net.raissa.students.models.entities.Payment;
@@ -19,6 +20,8 @@ import net.raissa.students.repository.PaymentRepository;
 import net.raissa.students.repository.StudentRepository;
 import net.raissa.students.services.PaymentService;
 import org.springdoc.api.OpenApiResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -179,13 +182,8 @@ public class PaymentRestController {
     })
     @PutMapping({"/payments/{id}"})
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public Payment updatePaymentStatus(@RequestParam PaymentStatus status,@PathVariable Long id) {
-        try {
-            return this.paymentService.updatePaymentStatus(status, id);
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return  new Payment();
-        }
+    public ResponseEntity<?> updatePaymentStatus(@RequestParam PaymentStatus status, @PathVariable Long id) throws StudentManagementNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(paymentService.updatePaymentStatus(status, id));
     }
 
 

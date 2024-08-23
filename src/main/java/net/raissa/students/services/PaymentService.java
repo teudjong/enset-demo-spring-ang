@@ -1,5 +1,6 @@
 package net.raissa.students.services;
 
+import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.dtos.NewPaymentDTO;
 import net.raissa.students.models.entities.Payment;
 import net.raissa.students.models.entities.Student;
@@ -42,17 +43,16 @@ public class PaymentService {
         return this.paymentRepository.save(payment);
     }
 
-    public Payment updatePaymentStatus(PaymentStatus status, Long id) throws Exception {
+    public Payment updatePaymentStatus(PaymentStatus status, Long id) throws StudentManagementNotFoundException {
         Optional<Payment> paymentOptional = this.paymentRepository.findById(id);
         Payment payment ;
         if (paymentOptional.isPresent()){
             payment = paymentOptional.get();
             payment.setStatus(status);
+            return this.paymentRepository.save(payment);
         }else {
-            throw new Exception("Aucun objet trouve avec l'ID "+ id);
+            throw new StudentManagementNotFoundException("Aucun paiement trouve avec l'ID : "+ id);
         }
-
-        return this.paymentRepository.save(payment);
     }
 
     public byte[] getPaymentFile(Long paymentId) throws IOException {
