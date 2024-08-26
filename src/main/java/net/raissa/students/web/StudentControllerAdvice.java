@@ -4,6 +4,8 @@ import net.raissa.students.exceptions.*;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -18,10 +20,10 @@ public class StudentControllerAdvice {
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(StudentManagementForbiddenException.class)
-    public ResponseEntity<ApiErrorResponse> handleStudentManagementForbiddenException(StudentManagementForbiddenException e) {
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handleStudentManagementForbiddenException(AccessDeniedException e) {
         ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
-        apiErrorResponse.setMessage(e.getMessage());
+        apiErrorResponse.setMessage("Accessing the resource you were trying to reach is forbidden : "+e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.FORBIDDEN.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.FORBIDDEN);
     }
@@ -50,10 +52,11 @@ public class StudentControllerAdvice {
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.OK);
     }
 
-    @ExceptionHandler(StudentManagementUnauthorizedException.class)
-    public ResponseEntity<ApiErrorResponse> handleStudentManagementUnauthorizedException(StudentManagementUnauthorizedException e) {
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiErrorResponse> handleStudentManagementUnauthorizedException(AuthenticationException e) {
         ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
-        apiErrorResponse.setMessage(e.getMessage());
+        //apiErrorResponse.setMessage(e.getMessage());
+        apiErrorResponse.setMessage("You are not authorized to view the resource : "+ e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.UNAUTHORIZED);
     }

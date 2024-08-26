@@ -1,6 +1,8 @@
 package net.raissa.students.exceptions;
 
-public class StudentManagementForbiddenException extends Exception{
+import org.springframework.security.access.AccessDeniedException;
+
+public class StudentManagementForbiddenException extends AccessDeniedException {
 
     public StudentManagementForbiddenException(String message){
         super(message);

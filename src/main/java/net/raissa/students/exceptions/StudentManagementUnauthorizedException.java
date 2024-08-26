@@ -1,6 +1,8 @@
 package net.raissa.students.exceptions;
 
-public class StudentManagementUnauthorizedException extends Exception{
+import org.springframework.security.core.AuthenticationException;
+
+public class StudentManagementUnauthorizedException extends AuthenticationException {
 
     public StudentManagementUnauthorizedException(String message){
         super(message);

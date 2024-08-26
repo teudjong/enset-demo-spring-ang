@@ -1,4 +1,4 @@
-package net.raissa.students.services;
+package net.raissa.students.models.services;
 
 import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.dtos.NewPaymentDTO;

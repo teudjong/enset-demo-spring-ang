@@ -18,7 +18,7 @@ import net.raissa.students.models.entities.enums.PaymentStatus;
 import net.raissa.students.models.entities.enums.PaymentType;
 import net.raissa.students.repository.PaymentRepository;
 import net.raissa.students.repository.StudentRepository;
-import net.raissa.students.services.PaymentService;
+import net.raissa.students.models.services.PaymentService;
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
