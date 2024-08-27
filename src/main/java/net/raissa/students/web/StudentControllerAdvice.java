@@ -15,7 +15,7 @@ public class StudentControllerAdvice {
     @ExceptionHandler(StudentManagementNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleStudentManagementNotFoundException(StudentManagementNotFoundException e) {
         ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
-        apiErrorResponse.setMessage(e.getMessage());
+        apiErrorResponse.setMessage("The resource you were trying to reach is not found : "+e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.NOT_FOUND.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.NOT_FOUND);
     }
@@ -31,7 +31,7 @@ public class StudentControllerAdvice {
     @ExceptionHandler(StudentManagementServerErrorException.class)
     public ResponseEntity<ApiErrorResponse> handleStudentManagementServerErrorException(StudentManagementServerErrorException e) {
         ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
-        apiErrorResponse.setMessage(e.getMessage());
+        apiErrorResponse.setMessage("Server error : "+e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -39,7 +39,7 @@ public class StudentControllerAdvice {
     @ExceptionHandler(StudentManagementBadRequestException.class)
     public ResponseEntity<ApiErrorResponse> handleStudentManagementBadRequestException(StudentManagementBadRequestException e) {
         ApiErrorResponse apiErrorResponse =new ApiErrorResponse();
-        apiErrorResponse.setMessage(e.getMessage());
+        apiErrorResponse.setMessage("Bad Request : "+e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.BAD_REQUEST);
     }
@@ -47,7 +47,7 @@ public class StudentControllerAdvice {
     @ExceptionHandler(StudentManagementSuccessfullyException.class)
     public ResponseEntity<ApiErrorResponse> handleStudentManagementSuccessfullyException(StudentManagementSuccessfullyException e) {
         ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
-        apiErrorResponse.setMessage(e.getMessage());
+        apiErrorResponse.setMessage("Successfully retrieved the student : "+e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.OK.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.OK);
     }
