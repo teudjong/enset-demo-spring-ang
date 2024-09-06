@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -35,12 +34,12 @@ public class SecurityController {
 
     @PostMapping({"/login"})
     public Map<String, String> login(String username, String password) {
-        Authentication authentication = this.authenticationManager.authenticate((Authentication)new UsernamePasswordAuthenticationToken(username, password));
+        Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         Instant instant = Instant.now();
         String scope = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(" "));
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder().issuedAt(instant).expiresAt(instant.plusSeconds(3600L)).subject(username).claim("scope", scope).build();
         JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(
-                JwsHeader.with((JwsAlgorithm) MacAlgorithm.HS512).build(), jwtClaimsSet);
+                JwsHeader.with(MacAlgorithm.HS512).build(), jwtClaimsSet);
         String jwt = this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
         return Map.of("access_token", jwt);
     }

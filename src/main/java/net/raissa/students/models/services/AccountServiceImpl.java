@@ -16,6 +16,7 @@ import java.util.UUID;
 @Transactional
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
+
     private AppUserRepository appUserRepository;
     private AppRoleRepository appRoleRepository;
     private PasswordEncoder passwordEncoder;
@@ -31,22 +32,38 @@ public class AccountServiceImpl implements AccountService {
                 .password(passwordEncoder.encode(password))
                 .email(email)
                 .build();
-        AppUser savedAppUser = appUserRepository.save(appUser);
-        return savedAppUser;
+        return appUserRepository.save(appUser);
     }
 
     @Override
     public AppRole addNewRole(String role) {
-        return null;
+        AppRole appRole=appRoleRepository.findById(role).orElse(null);
+        if(appRole!=null)  throw new RuntimeException("this role already exist");
+        appRole=AppRole.builder()
+                .role(role)
+                .build();
+        return appRoleRepository.save(appRole);
     }
 
     @Override
     public void addRoleToUser(String username, String role) {
+        AppUser appUser=appUserRepository.findByUsername(username);
+        AppRole appRole=appRoleRepository.findById(role).get();
+        appUser.getRoles().add(appRole);
+        //appUserRepository.save(appUser);
 
     }
 
     @Override
     public void removeRoleFromUser(String username, String role) {
+        AppUser appUser=appUserRepository.findByUsername(username);
+        AppRole appRole=appRoleRepository.findById(role).get();
+        appUser.getRoles().remove(appRole);
 
+    }
+
+    @Override
+    public AppUser loadUserByUsername(String username) {
+        return appUserRepository.findByUsername(username);
     }
 }
