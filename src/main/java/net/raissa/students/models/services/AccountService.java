@@ -1,29 +1,18 @@
 package net.raissa.students.models.services;
 
+import net.raissa.students.exceptions.StudentManagementConflictException;
+import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.entities.AppRole;
 import net.raissa.students.models.entities.AppUser;
-import org.springframework.security.core.userdetails.User;
 
-import java.util.List;
-
-public interface AccountService {
+    public interface AccountService {
     AppUser addNewUser(String username, String password, String email, String confirmPassword);
 
-    AppRole addNewRole(String role);
+    AppRole addNewRole(String role) throws StudentManagementConflictException;
 
-    void addRoleToUser(String username, String role);
+    void addRoleToUser(String username, String role) throws StudentManagementNotFoundException;
 
-    void removeRoleFromUser(String username, String role);
+    boolean removeRoleFromUser(String username, String role) throws StudentManagementNotFoundException;
 
     AppUser loadUserByUsername(String username);
-
-    void deleteUser(Long id);
-
-    User updateUser(Long id, User userDetails);
-
-    User createUser(User user);
-
-    User getUserById(Long id);
-
-    List<User> getAllUsers();
 }

@@ -55,9 +55,16 @@ public class StudentControllerAdvice {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ApiErrorResponse> handleStudentManagementUnauthorizedException(AuthenticationException e) {
         ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
-        //apiErrorResponse.setMessage(e.getMessage());
         apiErrorResponse.setMessage("You are not authorized to view the resource : "+ e.getMessage());
         apiErrorResponse.setCode(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
         return new ResponseEntity<>(apiErrorResponse,HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(StudentManagementConflictException.class)
+    public ResponseEntity<ApiErrorResponse> handleStudentStudentManagementConflictException(StudentManagementConflictException e) {
+        ApiErrorResponse apiErrorResponse=new ApiErrorResponse();
+        apiErrorResponse.setMessage("The resource already use : "+ e.getMessage());
+        apiErrorResponse.setCode(String.valueOf(HttpStatus.CONFLICT.value()));
+        return new ResponseEntity<>(apiErrorResponse,HttpStatus.CONFLICT);
     }
 }
