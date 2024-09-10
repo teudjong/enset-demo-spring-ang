@@ -9,20 +9,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import net.raissa.students.exceptions.StudentManagementConflictException;
 import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import net.raissa.students.models.dtos.NewPaymentDTO;
-import net.raissa.students.models.entities.AppRole;
-import net.raissa.students.models.entities.AppUser;
 import net.raissa.students.models.entities.Payment;
 import net.raissa.students.models.entities.Student;
 import net.raissa.students.models.entities.enums.PaymentStatus;
 import net.raissa.students.models.entities.enums.PaymentType;
-import net.raissa.students.models.services.AccountService;
+import net.raissa.students.models.services.PaymentService;
 import net.raissa.students.repository.PaymentRepository;
 import net.raissa.students.repository.StudentRepository;
-import net.raissa.students.models.services.PaymentService;
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +39,11 @@ public class PaymentRestController {
 
     private final PaymentService paymentService;
 
-    private final AccountService accountService;
 
-
-    public PaymentRestController(StudentRepository studentRepository, PaymentRepository paymentRepository, PaymentService paymentService, AccountService accountService) {
+    public PaymentRestController(StudentRepository studentRepository, PaymentRepository paymentRepository, PaymentService paymentService) {
         this.studentRepository = studentRepository;
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
-        this.accountService = accountService;
     }
 
     @Operation(summary = "View a list of all payments", description = "View a list of all payments")
@@ -223,82 +216,6 @@ public class PaymentRestController {
     @PreAuthorize("hasAuthority('SCOPE_USER')")
     public byte[] getPaymentFile(@PathVariable() Long id) throws IOException {
         return this.paymentService.getPaymentFile(id);
-    }
-
-
-
-    @Operation(summary = "",description = "")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved the newUser",content = {@Content(mediaType = "application/pdf")}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping(path = {""}, produces = {"application/pdf"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
-    public AppUser addNewUser(@PathVariable() String username, String password, String email, String confirmPassword ) throws IOException {
-        return this.accountService.addNewUser(username,password,email,confirmPassword);
-    }
-
-
-    @Operation(summary = "",description = "")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved the newRole",content = {@Content(mediaType = "application/pdf")}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping(path = {""}, produces = {"application/pdf"})
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public AppRole addNewRole(@PathVariable() String role) throws StudentManagementConflictException {
-        return this.accountService.addNewRole(role);
-    }
-
-
-    @Operation(summary = "Get the file associated with a payment",description = "")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved the UserByUsername",content = {@Content(mediaType = "application/pdf")}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping(path = {""}, produces = {"application/pdf"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
-    public AppUser loadUserByUsername(@PathVariable() String username) throws IOException {
-        return this.accountService.loadUserByUsername(username);
-    }
-
-
-    @Operation(summary = "",description = "")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved to addRoleToUser",content = {@Content(mediaType = "application/pdf")}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping(path = {""}, produces = {"application/pdf"})
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public void addRoleToUser(@PathVariable() String username, String role) throws StudentManagementNotFoundException {
-        this.accountService.addRoleToUser(username, role);
-    }
-
-
-    @Operation(summary = "",description = "")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved to addRoleToUser",content = {@Content(mediaType = "application/pdf")}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping(path = {""}, produces = {"application/pdf"})
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public void removeRoleFromUser(@PathVariable() String username, String role) throws StudentManagementNotFoundException {
-        this.accountService.removeRoleFromUser(username, role);
     }
 
 }

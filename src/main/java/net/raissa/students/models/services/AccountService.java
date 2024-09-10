@@ -12,7 +12,7 @@ import net.raissa.students.models.entities.AppUser;
 
     void addRoleToUser(String username, String role) throws StudentManagementNotFoundException;
 
-    boolean removeRoleFromUser(String username, String role) throws StudentManagementNotFoundException;
+    void removeRoleFromUser(String username, String role) throws StudentManagementNotFoundException;
 
     AppUser loadUserByUsername(String username);
 }
