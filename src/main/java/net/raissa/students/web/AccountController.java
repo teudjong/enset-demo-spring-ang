@@ -15,10 +15,7 @@ import net.raissa.students.models.services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin({"*"})
@@ -72,5 +69,36 @@ public class AccountController {
     @PreAuthorize("hasAuthority('SCOPE_ROLE_USER') || hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<?>  addNewRole(@PathVariable() String role) throws StudentManagementConflictException {
         return ResponseEntity.status(HttpStatus.CREATED).body(accountService.addNewRole(role));
+    }
+
+
+    @Operation(summary = "Remove role from user", description = "Remove role from user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",description = "Successfully remove role from user"),
+            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
+    })
+    @DeleteMapping(path = {"/accounts/{username}/{role}"})
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER') || hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<?>  removeRoleFromUser(@PathVariable() String username, @PathVariable() String role) throws StudentManagementNotFoundException {
+        accountService.removeRoleFromUser(username,role);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+
+    @Operation(summary = "Load user by username", description = "Load user by username")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Successfully load User By Username",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = AppUser.class))}),
+            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
+    })
+    @GetMapping(path = {"/accounts/{username}"})
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
+    public ResponseEntity<?>  loadUserByUsername(@PathVariable() String username) throws StudentManagementNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.loadUserByUsername(username));
     }
 }

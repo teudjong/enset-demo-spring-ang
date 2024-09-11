@@ -1,6 +1,7 @@
 package net.raissa.students.models.services;
 
 import lombok.AllArgsConstructor;
+import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.entities.AppRole;
 import net.raissa.students.models.entities.AppUser;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +20,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser= accountService.loadUserByUsername(username);
+        AppUser appUser= null;
+        try {
+            appUser = accountService.loadUserByUsername(username);
+        } catch (StudentManagementNotFoundException e) {
+            throw new UsernameNotFoundException(e.getMessage(),e);
+        }
         if (appUser==null)  throw new UsernameNotFoundException(String.format("User %s not found",username));
 
         String[] roles = appUser.getRoles().stream().map(AppRole::getRole).toArray(String[]::new);

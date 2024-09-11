@@ -7,6 +7,9 @@ import net.raissa.students.models.entities.AppRole;
 import net.raissa.students.models.entities.AppUser;
 import net.raissa.students.repository.AppRoleRepository;
 import net.raissa.students.repository.AppUserRepository;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,9 +85,14 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-
     @Override
-    public AppUser loadUserByUsername(String username) {
-        return appUserRepository.findByUsername(username);
+    public AppUser loadUserByUsername(String username) throws StudentManagementNotFoundException {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if (Objects.nonNull(appUser)){
+            return appUser;
+        }else {
+            throw new StudentManagementNotFoundException(String.format("L'utilisateur %s n'existe pas; veuillez le cree", username));
+        }
     }
+
 }

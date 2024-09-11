@@ -14,5 +14,5 @@ import net.raissa.students.models.entities.AppUser;
 
     void removeRoleFromUser(String username, String role) throws StudentManagementNotFoundException;
 
-    AppUser loadUserByUsername(String username);
+    AppUser loadUserByUsername(String username) throws StudentManagementNotFoundException;
 }
