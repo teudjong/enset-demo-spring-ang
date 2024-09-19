@@ -25,7 +25,7 @@ export class AdminTemplateComponent implements OnInit {
   }
 
   loadPayment(){
-    if(this.authService.roles.includes('ADMIN')){
+    if(this.authService.roles.includes('ROLE_ADMIN')){
       this.router.navigateByUrl("/admin/payments");
     }else{
       this.router.navigateByUrl("/admin/notAuthorized");
@@ -34,7 +34,7 @@ export class AdminTemplateComponent implements OnInit {
   }
 
   loadStudent(){
-    if(this.authService.roles.includes('ADMIN')){
+    if(this.authService.roles.includes('ROLE_ADMIN')){
       this.router.navigateByUrl("/admin/students");
     }else{
       this.router.navigateByUrl("/admin/notAuthorized");
