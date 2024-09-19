@@ -28,19 +28,6 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @Operation(summary = "Save new user", description = "Save new user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201",description = "Successfully saved the new user",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = AppUser.class))}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The payment or file you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @PostMapping(path = {"/accounts/{username}/{password}/{email}/{confirmPassword}"})
-    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
-    public ResponseEntity<?>  addNewUser(@PathVariable() String username, @PathVariable() String password,@PathVariable()  String email, @PathVariable() String confirmPassword ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(accountService.addNewUser(username,password,email,confirmPassword));
-    }
 
     @Operation(summary = "Add role to user", description = "Add role to user")
     @ApiResponses(value = {

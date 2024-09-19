@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,6 +20,8 @@ public class AppUser {
     private String username;
 
     private String password;
+
+    private Date createDate = new Date();
 
     @Column(unique = true)
     private String email;

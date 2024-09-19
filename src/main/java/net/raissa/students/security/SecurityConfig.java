@@ -33,7 +33,7 @@ public class SecurityConfig {
     private final String secretKey;
     private final UserDetailsService userDetailsService;
 
-    private static final String[] SWAGGER_WHITELIST = new String[] { "/auth/login/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**" };
+    private static final String[] SWAGGER_WHITELIST = new String[] { "/auth/login/**","/auth/accounts/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**" };
 
     public SecurityConfig(@Value("${jwt.secret}") String secretKey,UserDetailsService userDetailsService) {
         this.secretKey = secretKey;

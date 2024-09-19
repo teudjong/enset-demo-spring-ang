@@ -13,12 +13,10 @@ import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import net.raissa.students.models.dtos.NewPaymentDTO;
 import net.raissa.students.models.entities.Payment;
-import net.raissa.students.models.entities.Student;
 import net.raissa.students.models.entities.enums.PaymentStatus;
 import net.raissa.students.models.entities.enums.PaymentType;
 import net.raissa.students.models.services.PaymentService;
 import net.raissa.students.repository.PaymentRepository;
-import net.raissa.students.repository.StudentRepository;
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +31,13 @@ import java.util.List;
 @CrossOrigin({"*"})
 @Slf4j
 public class PaymentRestController {
-    private final StudentRepository studentRepository;
 
     private final PaymentRepository paymentRepository;
 
     private final PaymentService paymentService;
 
 
-    public PaymentRestController(StudentRepository studentRepository, PaymentRepository paymentRepository, PaymentService paymentService) {
-        this.studentRepository = studentRepository;
+    public PaymentRestController(PaymentRepository paymentRepository, PaymentService paymentService) {
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
     }
@@ -56,7 +52,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping(path = {"/payments"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public List<Payment> allPayments() {
         return this.paymentRepository.findAll();
     }
@@ -72,7 +68,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping(path = {"/student/{code}/payments"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public List<Payment> paymentsByStudent(@PathVariable String code ) {
         return this.paymentRepository.findByStudentCode(code);
     }
@@ -88,7 +84,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping(path = {"/payments/byStatus"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public List<Payment> paymentByStatus(@RequestParam PaymentStatus status) {
         return this.paymentRepository.findByStatus(status);
     }
@@ -104,7 +100,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping(path = {"/payments/byType/{type}"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public List<Payment> paymentsByType(@PathVariable PaymentType type) {
         return this.paymentRepository.findByType(type);
     }
@@ -119,56 +115,9 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping(path = {"/payments/{id}"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public Payment getPaymentById(@PathVariable Long id) {
         return this.paymentRepository.findById(id).orElseThrow(() -> new OpenApiResourceNotFoundException("Payment not found"));
-    }
-
-
-    @Operation(summary = "View a list of available students",  description = "Retrieve a list of all available students")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved list",content = {@Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Student.class)))}),
-            @ApiResponse(responseCode = "400",description = "Bad Request",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The resource you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping({"/students"})
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public List<Student> allStudents() {
-        return this.studentRepository.findAll();
-    }
-
-
-    @Operation(summary = "Get a student by code", description = "Retrieve a specific student using their code")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved the student",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = Student.class))}),
-            @ApiResponse(responseCode = "400",description = "Bad Request",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The resource you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping({"/students/{code}"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
-    public Student getStudentByCode(@PathVariable String code) {
-        return this.studentRepository.findByCode(code);
-    }
-
-    @Operation(summary = "Get students by program ID", description = "Retrieve a list of students based on the provided program ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Successfully retrieved list of students",content = {@Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Student.class)))}),
-            @ApiResponse(responseCode = "400",description = "Bad Request",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "401",description = "You are not authorized to view the resource",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "403",description = "Accessing the resource you were trying to reach is forbidden",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "404",description = "The resource you were trying to reach is not found",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))}),
-            @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
-    })
-    @GetMapping({"/students/{programId}"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
-    public List<Student> getStudentsByProgramId(@PathVariable String programId) {
-        return this.studentRepository.findByProgramId(programId);
     }
 
 
@@ -182,7 +131,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @PutMapping({"/payments/{id}"})
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<?> updatePaymentStatus(@RequestParam PaymentStatus status, @PathVariable Long id) throws StudentManagementNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(paymentService.updatePaymentStatus(status, id));
     }
@@ -197,7 +146,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @PostMapping(path = {"/payments"}, consumes = {"multipart/form-data"})
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public Payment savePayment(@RequestParam("file") MultipartFile file, @RequestBody @Valid
             NewPaymentDTO newPaymentDTO) throws IOException {
         return this.paymentService.savePayment(file, newPaymentDTO);
@@ -213,7 +162,7 @@ public class PaymentRestController {
             @ApiResponse(responseCode = "500",description = "Internal server error",content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping(path = {"/payments/{id}/file"}, produces = {"application/pdf"})
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public byte[] getPaymentFile(@PathVariable() Long id) throws IOException {
         return this.paymentService.getPaymentFile(id);
     }

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,6 +39,7 @@ public class AccountServiceImpl implements AccountService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .email(email)
+                .createDate(new Date())
                 .build();
         return appUserRepository.save(appUser);
     }
