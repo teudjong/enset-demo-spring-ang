@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum PaymentType {
-    CASH, CHECK, TRANSFER, DEPOSIT;
+    CASH, CHECK, TRANSFER, DEPOSIT
 }

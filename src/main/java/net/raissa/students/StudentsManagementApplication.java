@@ -1,7 +1,7 @@
 package net.raissa.students;
 
 import net.raissa.students.models.entities.Student;
-import net.raissa.students.models.services.AccountService;
+import net.raissa.students.services.AccountService;
 import net.raissa.students.repository.PaymentRepository;
 import net.raissa.students.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;

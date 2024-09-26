@@ -1,4 +1,4 @@
-package net.raissa.students.models.services;
+package net.raissa.students.services;
 
 import net.raissa.students.repository.StudentRepository;
 import org.springframework.stereotype.Service;

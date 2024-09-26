@@ -1,4 +1,4 @@
-package net.raissa.students.models.services;
+package net.raissa.students.services;
 
 import lombok.AllArgsConstructor;
 import net.raissa.students.exceptions.StudentManagementNotFoundException;
@@ -20,7 +20,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser= null;
+        AppUser appUser;
         try {
             appUser = accountService.loadUserByUsername(username);
         } catch (StudentManagementNotFoundException e) {

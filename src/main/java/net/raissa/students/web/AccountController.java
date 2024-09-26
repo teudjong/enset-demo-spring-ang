@@ -11,7 +11,7 @@ import net.raissa.students.exceptions.StudentManagementNotFoundException;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import net.raissa.students.models.entities.AppRole;
 import net.raissa.students.models.entities.AppUser;
-import net.raissa.students.models.services.AccountService;
+import net.raissa.students.services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

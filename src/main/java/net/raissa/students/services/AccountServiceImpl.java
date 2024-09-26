@@ -1,4 +1,4 @@
-package net.raissa.students.models.services;
+package net.raissa.students.services;
 
 import lombok.AllArgsConstructor;
 import net.raissa.students.exceptions.StudentManagementConflictException;
@@ -7,9 +7,6 @@ import net.raissa.students.models.entities.AppRole;
 import net.raissa.students.models.entities.AppUser;
 import net.raissa.students.repository.AppRoleRepository;
 import net.raissa.students.repository.AppUserRepository;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

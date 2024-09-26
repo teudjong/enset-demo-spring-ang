@@ -1,4 +1,4 @@
-package net.raissa.students.models.services;
+package net.raissa.students.services;
 
 import net.raissa.students.exceptions.StudentManagementConflictException;
 import net.raissa.students.exceptions.StudentManagementNotFoundException;

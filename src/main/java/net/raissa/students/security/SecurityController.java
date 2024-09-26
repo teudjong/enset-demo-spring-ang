@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import net.raissa.students.models.entities.AppUser;
-import net.raissa.students.models.services.AccountService;
+import net.raissa.students.services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

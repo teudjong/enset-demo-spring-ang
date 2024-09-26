@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import net.raissa.students.models.dtos.ApiErrorResponse;
 import net.raissa.students.models.entities.Student;
-import net.raissa.students.models.services.StudentService;
+import net.raissa.students.services.StudentService;
 import net.raissa.students.repository.StudentRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
